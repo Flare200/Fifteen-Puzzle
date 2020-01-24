@@ -26,7 +26,7 @@ class puzzleNode
     puzzleNode()//Default Constructor
     {
       for(int i=0; i<16; i++)
-	state[i]=start[i];
+	      state[i]=start[i];
 
       solPath="";
       pathMove=0;
@@ -35,7 +35,7 @@ class puzzleNode
     puzzleNode(int curstate[], string path, int move)
     {
       for(int i=0; i<16; i++)
-	state[i]=curstate[i];
+	      state[i]=curstate[i];
 
       solPath=path;
       pathMove=move;
@@ -74,7 +74,7 @@ int puzzleNode::GoalDistanceEstimate(puzzleNode &goal)
   for(int i=0;i<16;i++)
     {
       if(state[i]==0)//If blank tile
-	continue;
+	      continue;
 
       num=state[i];//actual number of the tile 
       dest=num-1;  //index of the destination for the tile      
@@ -94,29 +94,29 @@ int puzzleNode::GoalDistanceEstimate(puzzleNode &goal)
       if(row1==row2)//Tile is in correct row
 	{
 	  for(int j=(i/4)*4; j<i; j++)//Starting from the leftmost tile in row
-	    {  
-	      if(i%4==0)
-		break;//If leftmost tile
+	    {
+        if(i%4==0)
+          break; //If leftmost tile
 
-	      if(state[j]==0 || ((state[j]-1)/4!=(state[i]-1)/4))
-		continue;//If blank tile, or other tile not in correct row
+        if(state[j]==0 || ((state[j]-1)/4!=(state[i]-1)/4))
+          continue; //If blank tile, or other tile not in correct row
 
-	      if(state[j]>state[i])//Linear conflict in row
-		h+=2;
-	    }
+        if(state[j]>state[i]) //Linear conflict in row
+          h+=2;
+      }
 	}
 
       if(col1==col2)//Tile is in correct column      
         {
           for(int j=i/4; j<i; j++)//Starting from the uppermost tile in col 
-            {   
+            {
               if(i<4)
-                break;//If uppermost tile
+                break; //If uppermost tile
 
-	      if(j%4!=i%4 || state[j]==0 || ((state[j]-1)%4!=(state[i]-1)%4))
-                continue;//If blank tile, wrong col, or other tile not in correct col
+              if(j%4!=i%4 || state[j]==0 || ((state[j]-1)%4!=(state[i]-1)%4))
+                continue; //If blank tile, wrong col, or other tile not in correct col
 
-	      if(state[j]>state[i])//Linear conflict in col
+              if(state[j]>state[i]) //Linear conflict in col
                 h+=2;
             }
         }
@@ -151,7 +151,7 @@ bool puzzleNode::GetSuccessors(AStarSearch<puzzleNode> *astarsearch, puzzleNode 
       newNode.solPath=solPath;
 
       if(!ret)
-	return false;
+	      return false;
     }
 
   if(moveDown(state,newNode.state,solPath,newNode.solPath,pathMove,newNode.pathMove))
@@ -160,7 +160,7 @@ bool puzzleNode::GetSuccessors(AStarSearch<puzzleNode> *astarsearch, puzzleNode 
       newNode.solPath=solPath;
 
       if(!ret)
-	return false;
+	      return false;
     }
 
   if(moveLeft(state,newNode.state,solPath,newNode.solPath,pathMove,newNode.pathMove))
@@ -169,7 +169,7 @@ bool puzzleNode::GetSuccessors(AStarSearch<puzzleNode> *astarsearch, puzzleNode 
       newNode.solPath=solPath;
 
       if(!ret)
-	return false;
+	      return false;
     }
   
   if(moveRight(state,newNode.state,solPath,newNode.solPath,pathMove,newNode.pathMove))
@@ -178,7 +178,7 @@ bool puzzleNode::GetSuccessors(AStarSearch<puzzleNode> *astarsearch, puzzleNode 
       newNode.solPath=solPath;
 
       if(!ret)
-	return false;
+	      return false;
     }
 
   return true;
@@ -197,13 +197,13 @@ void puzzleNode::PrintNodeInfo()
   else//Print move
     {
       if(solPath[pathMove-1]=='U')
-	cout << setw(10) << "Up" << endl << endl;
+	      cout << setw(10) << "Up" << endl << endl;
       else if(solPath[pathMove-1]=='D')
-	cout << setw(11) << "Down" << endl << endl;
+	      cout << setw(11) << "Down" << endl << endl;
       else if(solPath[pathMove-1]=='L')
-	cout << setw(11) << "Left" << endl << endl;
+	      cout << setw(11) << "Left" << endl << endl;
       else if(solPath[pathMove-1]=='R')
-	cout << setw(11) << "Right" << endl << endl;
+	      cout << setw(11) << "Right" << endl << endl;
     }
 
   for(int i=0; i<4; i++)//Print state of tiles
@@ -236,7 +236,7 @@ bool puzzleNode::moveUp(int state[], int cstate[], string path, string &cpath, i
               cstate[i]=cstate[i-4];
               cstate[i-4]=temp;
 
-	      cpath=cpath+"U";//Add U to solution path
+	            cpath=cpath+"U";//Add U to solution path
               return true;
             }
         }
@@ -264,7 +264,7 @@ bool puzzleNode::moveDown(int state[], int cstate[], string path, string &cpath,
               cstate[i]=cstate[i+4];
               cstate[i+4]=temp;
 
-	      cpath=cpath+"D";//Add D to solution path
+	            cpath=cpath+"D";//Add D to solution path
               return true;
             }
         }
@@ -292,7 +292,7 @@ bool puzzleNode::moveLeft(int state[], int cstate[], string path, string &cpath,
               cstate[i]=cstate[i-1];
               cstate[i-1]=temp;
 
-	      cpath=cpath+"L";//Add L to solution path
+	            cpath=cpath+"L";//Add L to solution path
               return true;
             }
         }
@@ -320,7 +320,7 @@ bool puzzleNode::moveRight(int state[], int cstate[], string path, string &cpath
               cstate[i]=cstate[i+1];
               cstate[i+1]=temp;
 
-	      cpath=cpath+"R";//Add R to solution path
+	            cpath=cpath+"R";//Add R to solution path
               return true;
             }
         }
@@ -333,128 +333,6 @@ int start[16]={1,2,0,3,6,7,11,4,5,9,12,8,13,10,14,15};//1
 //int start[16]={0,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};//3
 int goal[16]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0};
 
-
-//Functions corresponding to puzzleNode class 
-//---------------------------------------------------------------
-//Generic Functions not specific to puzzleNode class
-
-int getHval(int state[])//Unused
-{
-  int h=0,num,dest,row1,col1,row2,col2;
-  for(int i=0;i<16;i++)
-    {
-      if(state[i]==0)
-	continue;
-      
-      num=state[i];
-      dest=num-1; 
-     
-      row1=i/4;
-      col1=i%4;
-      
-      row2=dest/4;
-      col2=dest%4;
-
-      if(row1!=row2)
-	h+=abs(row1-row2);
-
-      if(col1!=col2)
-	h+=abs(col1-col2);
-    }
-
-  return h;
-} 
-
-
-bool moveUp(int state[])//Unused
-{
-  for(int i=0; i<16; i++)
-    {
-      if(state[i]==0)
-	{
-	  if(i<=3)
-	    return false;
-	  else
-	    {
-	      int temp=state[i];
-	      state[i]=state[i-4];
-	      state[i-4]=temp;
-	      return true;
-	    }
-	}
-    }
-}
-
-
-bool moveDown(int state[])//Unused
-{
-  for(int i=0; i<16; i++)
-    {
-      if(state[i]==0)
-        {
-          if(i>=12)
-            return false;
-          else
-            {
-              int temp=state[i];
-              state[i]=state[i+4];
-              state[i+4]=temp;
-              return true;
-            }
-        }
-    }
-}
-
-
-bool moveLeft(int state[])//Unused
-{
-  for(int i=0; i<16; i++)
-    {
-      if(state[i]==0)
-        {
-          if(i%4==0)
-            return false;
-          else
-            {
-              int temp=state[i];
-              state[i]=state[i-1];
-              state[i-1]=temp;
-              return true;
-            }
-        }
-    }
-}
-
-
-bool moveRight(int state[])//Unused
-{
-  for(int i=0; i<16; i++)
-    {
-      if(state[i]==0)
-        {
-          if((i+1)%4==0)
-            return false;
-          else
-            {
-              int temp=state[i];
-              state[i]=state[i+1];
-              state[i+1]=temp;
-              return true;
-            }
-	}
-    }
-}
-
-
-void printState(int state[])//Unused
-{ 
-  for(int i=0; i<4; i++)
-    {
-      for(int j=0; j<4; j++)
-	cout << setw(4) << state[j+(i*4)];
-      cout << endl;
-    }
-}
 
 
 int main()
@@ -551,9 +429,9 @@ int main()
 
 	}
       else if(searchState==AStarSearch<puzzleNode>::SEARCH_STATE_FAILED)//Goal state not reached
-	cout << "Search Failed" << endl;
+	      cout << "Search Failed" << endl;
       else if(searchState==AStarSearch<puzzleNode>::SEARCH_STATE_OUT_OF_MEMORY)//Ran through max nodes
-	cout <<"Out of Memory"<< endl;
+	      cout <<"Out of Memory"<< endl;
 
       //cout << "Search Steps: " << searchSteps << endl;
 
